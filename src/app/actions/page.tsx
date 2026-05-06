@@ -20,7 +20,17 @@ const STATUSES: { value: string; label: string }[] = [
   { value: 'overdue', label: 'Overdue' },
 ];
 
-const DEPARTMENTS = ['all', 'Environment', 'Finance', 'Health', 'Infrastructure', 'Education', 'Home Affairs'];
+const DEPARTMENTS = [
+  'all',
+  'Environment',
+  'Finance',
+  'Health',
+  'Infrastructure',
+  'Education',
+  'Home Affairs',
+  'Water Resources',
+  'Social Justice',
+];
 const PRIORITIES = ['all', 'high', 'medium', 'low'];
 
 export default function ActionsPage() {

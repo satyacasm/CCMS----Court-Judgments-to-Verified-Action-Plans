@@ -25,11 +25,15 @@ export const DEPARTMENT_COLORS: Record<string, string> = {
   'Finance': '#D4831A',
   'Education': '#7F77DD',
   'Health': '#C1121F',
-  'Infrastructure': '#888780',
+  'Infrastructure': '#5B8DB8',
   'Law': '#5B4FCF',
   'Agriculture': '#4A7C59',
-  'Water Resources': '#2980B9',
+  'Water Resources': '#0891B2',
   'Urban Development': '#8E6B3E',
+  'Social Justice': '#7C3AED',
+  'Tribal Affairs': '#9A3B72',
+  'Science & Technology': '#0D7377',
+  'Defence': '#4B5563',
 };
 
 export const DEPARTMENTS = Object.keys(DEPARTMENT_COLORS);

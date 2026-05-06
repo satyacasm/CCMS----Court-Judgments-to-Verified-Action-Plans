@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import { Judgment } from '@/types/judgment';
 import { ActionItem } from '@/types/action';
+import { AppNotification, INITIAL_NOTIFICATIONS, INITIAL_UNREAD_COUNT } from '@/lib/notifications';
 
 interface AppState {
   // Sidebar
@@ -25,8 +26,10 @@ interface AppState {
   setPdfHighlightedActionId: (id: string | null) => void;
 
   // Notifications
+  notifications: AppNotification[];
   notificationCount: number;
-  setNotificationCount: (n: number) => void;
+  markNotificationRead: (id: string) => void;
+  markAllRead: () => void;
 
   // Filters
   actionFilter: {
@@ -58,8 +61,23 @@ export const useAppStore = create<AppState>((set) => ({
   pdfHighlightedActionId: null,
   setPdfHighlightedActionId: (id) => set({ pdfHighlightedActionId: id }),
 
-  notificationCount: 3,
-  setNotificationCount: (n) => set({ notificationCount: n }),
+  notifications: INITIAL_NOTIFICATIONS,
+  notificationCount: INITIAL_UNREAD_COUNT,
+  markNotificationRead: (id) =>
+    set((s) => {
+      const updated = s.notifications.map((n) =>
+        n.id === id ? { ...n, read: true } : n
+      );
+      return {
+        notifications: updated,
+        notificationCount: updated.filter((n) => !n.read).length,
+      };
+    }),
+  markAllRead: () =>
+    set((s) => ({
+      notifications: s.notifications.map((n) => ({ ...n, read: true })),
+      notificationCount: 0,
+    })),
 
   actionFilter: {
     status: 'all',
@@ -70,6 +88,6 @@ export const useAppStore = create<AppState>((set) => ({
   setActionFilter: (filter) =>
     set((s) => ({ actionFilter: { ...s.actionFilter, ...filter } })),
 
-  isDemoMode: true,
+  isDemoMode: false,
   setDemoMode: (v) => set({ isDemoMode: v }),
 }));

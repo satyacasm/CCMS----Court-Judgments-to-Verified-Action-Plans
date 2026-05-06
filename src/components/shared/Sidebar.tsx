@@ -15,6 +15,9 @@ import {
 } from 'lucide-react';
 import { useAppStore } from '@/store/useAppStore';
 import { cn } from '@/lib/utils';
+import { DEMO_ACTIONS } from '@/lib/demo-data';
+
+const overdueCount = DEMO_ACTIONS.filter((a) => a.status === 'overdue').length;
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -58,14 +61,15 @@ export default function Sidebar() {
         </div>
       </div>
 
-      {/* Demo badge */}
-      <div className="mx-4 mt-4 mb-2 px-3 py-1.5 rounded-md bg-amber-500/10 border border-amber-500/20 flex items-center gap-2">
-        <div className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-        <span className="text-amber-300 text-[11px] font-mono font-medium">DEMO MODE</span>
+      {/* System status */}
+      <div className="mx-4 mt-4 mb-2 px-3 py-1.5 rounded-md bg-green-500/10 border border-green-500/20 flex items-center gap-2">
+        <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+        <span className="text-green-300 text-[11px] font-mono font-medium">SYSTEM ACTIVE</span>
+        <span className="ml-auto text-green-400/60 text-[10px] font-mono">v2.1</span>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 py-2" role="navigation">
+      <nav className="flex-1 py-2 overflow-y-auto" role="navigation">
         <div className="mb-1 px-5 pb-1">
           <span className="text-white/30 text-[10px] font-mono uppercase tracking-widest">
             Main
@@ -82,9 +86,9 @@ export default function Sidebar() {
             >
               <Icon size={16} strokeWidth={1.8} />
               <span>{label}</span>
-              {label === 'Action Items' && (
-                <span className="ml-auto text-[10px] bg-amber-500/20 text-amber-300 font-mono px-1.5 py-0.5 rounded-full">
-                  {3}
+              {label === 'Action Items' && overdueCount > 0 && (
+                <span className="ml-auto text-[10px] bg-red-500/20 text-red-300 font-mono px-1.5 py-0.5 rounded-full">
+                  {overdueCount}
                 </span>
               )}
             </Link>
@@ -132,12 +136,12 @@ export default function Sidebar() {
 
         {/* User avatar */}
         <div className="flex items-center gap-3 px-5 py-3 mt-2 border-t border-white/10">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-saffron to-amber-400 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
-            A
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-500 to-orange-400 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 flex-shrink-0">
+            S
           </div>
           <div className="min-w-0">
-            <div className="text-white text-sm font-medium truncate">Admin User</div>
-            <div className="text-white/40 text-[11px] truncate">admin@court.gov.in</div>
+            <div className="text-white text-sm font-medium truncate">Registrar Office</div>
+            <div className="text-white/40 text-[11px] truncate">registrar@supremecourt.gov.in</div>
           </div>
         </div>
       </div>
